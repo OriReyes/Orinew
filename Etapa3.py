@@ -66,12 +66,12 @@ class Inventario:
     def agregar_producto(self, codigo, descripcion, cantidad, precio):
         producto_existente = self.consultar_producto(codigo)
         if producto_existente:
-            return jsonify({'message': 'Ya existe un producto con ese código.'}), 400
+            return jsonify({'Ya existe un producto con ese codigo.'}), 400
 
         #nuevo_producto = Producto(codigo, descripcion, cantidad, precio)
         self.cursor.execute("INSERT INTO productos VALUES (?, ?, ?, ?)", (codigo, descripcion, cantidad, precio))
         self.conexion.commit()
-        return jsonify({'message': 'Producto agregado correctamente.'}), 200
+        return jsonify({'Producto agregado correctamente.'}), 200
 
     def consultar_producto(self, codigo):
         self.cursor.execute("SELECT * FROM productos WHERE codigo = ?", (codigo,))
