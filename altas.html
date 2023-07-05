@@ -31,24 +31,24 @@
     </form>
 
     <script>
-        //const URL = "http://127.0.0.1:5000/"
-        const URL = "https://Oriana.pythonanywhere.com/"
+        const URL = "https://Oriana.pythonanywhere.com/";
         // Capturamos el evento de envío del formulario
-        document.getElementById('formulario').addEventListener('submit', function (event) {
-            event.preventDefault(); // Evitamos que se envie el form por ahora
+        const formulario = document.getElementById('formulario');
+        formulario.addEventListener('submit', function (event) {event.preventDefault(); // Evitamos que se envie el form por ahora
 
             // Obtenemos los valores del formulario
-            var codigo = document.getElementById('codigo').value;
-            var descripcion = document.getElementById('descripcion').value;
-            var cantidad = document.getElementById('cantidad').value;
-            var precio = document.getElementById('precio').value;
+            // Obtener los valores del formulario
+            const codigo = document.getElementById('codigo').value;
+            const descripcion = document.getElementById('descripcion').value;
+            const cantidad = document.getElementById('cantidad').value;
+            const precio = document.getElementById('precio').value;
 
-            // Creamos un objeto con los datos del producto
-            var producto = {
-                codigo: codigo,
-                descripcion: descripcion,
-                cantidad: cantidad,
-                precio: precio
+            // Crear un objeto con los datos del producto
+            const producto = {
+                codigo,
+                descripcion,
+                cantidad,
+                precio
             };
             console.log(producto)
             // Realizamos la solicitud POST al servidor
@@ -59,24 +59,26 @@
                 },
                 body: JSON.stringify(producto)
             })
-                .then(function (response) {
+                .then(response => {
                     // Código para manejar la respuesta
                     if (response.ok) {
                         return response.json(); // Parseamos la respuesta JSON
                     } else {
                         // Si hubo un error, lanzar explícitamente una excepción
                         // para ser "catcheada" más adelante
-                        throw new Error('Error al agregar el producto.');
+                        return response.text().then(errorMessage => {
+                            throw new Error('Error al agregar el producto: ' + errorMessage);
+                        });
                     }
                 })
-                .then(function (data) {
+                .then(data => {
                     alert('Producto agregado correctamente.');
                     //Limpiamos el formulario.
-                    document.getElementById('formulario').reset();
+                    formulario.reset();
                 })
-                .catch(function (error) {
+                .catch(error => {
                     // Código para manejar errores
-                    alert('Error al agregar el producto.');
+                    alert(error.message);
                 });
         })
     </script>
