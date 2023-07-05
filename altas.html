@@ -72,10 +72,7 @@
                 .then(function (data) {
                     alert('Producto agregado correctamente.');
                     //Limpiamos el formulario.
-                    document.getElementById('codigo').value = "";
-                    document.getElementById('descripcion').value = "";
-                    document.getElementById('cantidad').value = "";
-                    document.getElementById('precio').value = "";
+                    document.getElementById('formulario').reset();
                 })
                 .catch(function (error) {
                     // Código para manejar errores
