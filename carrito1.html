@@ -60,7 +60,7 @@
       </table>
     </div>
 
-    <div v-if="!mostrarCarrito" class="contenedor-centrado">
+    <div class="contenedor-centrado">
       <button @click="obtenerCarrito">Mostrar carrito</button>
     </div>
 
@@ -71,8 +71,7 @@
   </div>
 
   <script>
-    //const URL = "http://127.0.0.1:5000/"
-    const URL = "https://Oriana.pythonanywhere.com/"
+    const URL = "https://Oriana.pythonanywhere.com/";
 
     const app = Vue.createApp({
       data() {
