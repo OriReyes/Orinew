@@ -25,6 +25,41 @@
     z-index: 99;
 }
 
+.tab-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    padding: 8px;
+    margin:4px;
+    background-color: #FEA116;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container form {
+    text-align: center;
+}
+
+.form-container form label {
+    display: block;
+}
+
+
 
 /*** Spinner ***/
 #spinner {
