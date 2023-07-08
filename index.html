@@ -287,7 +287,7 @@
                                     <div class="d-flex align-items-center">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <div id="app2">
-                                                <form @submit.prevent="obtenerProductoM">
+                                                <form @submit.prevent="obtenerProducto">
                                                     <label for="codigo">Código:</label>
                                                     <input type="text" v-model="codigo" required><br>
                                                     <button type="submit">Modificar Producto</button>
@@ -602,7 +602,56 @@
                             // Código para manejar errores
                             alert('Error al eliminar el producto.');
                         });
-                }
+                },
+                obtenerProducto() {
+                        fetch(URL + 'productos/' + this.codigo)
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.json()
+                                } else {
+                                    throw new Error('Error al obtener los datos del producto.')
+                                }
+                            })
+                            .then(data => {
+                                this.descripcion = data.descripcion
+                                this.cantidad = data.cantidad
+                                this.precio = data.precio
+                                this.mostrarDatosProducto = true
+                            })
+                            .catch(error => {
+                                alert('Error al obtener los datos del producto.')
+                            })
+                    },
+                    guardarCambios() {
+                        const producto = {
+                            codigo: this.codigo,
+                            descripcion: this.descripcion,
+                            cantidad: this.cantidad,
+                            precio: this.precio
+                        }
+    
+                        fetch(URL + 'productos/' + this.codigo, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(producto)
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.json()
+                                } else {
+                                    throw new Error('Error al guardar los cambios del producto.')
+                                }
+                            })
+                            .then(data => {
+                                alert('Cambios guardados correctamente.')
+                                location.reload()
+                            })
+                            .catch(error => {
+                                alert('Error al guardar los cambios del producto.')
+                            })
+                    }
             },
             mounted() {
                 //Al cargar la página, obtenemos la lista de productos
@@ -663,72 +712,7 @@
                 });
         })
     </script>
-        <script>
-            const app2 = Vue.createApp({
-                data() {
-                    return {
-                        codigo: '',
-                        mostrarDatosProducto: false,
-                        descripcion: '',
-                        cantidad: '',
-                        precio: ''
-                    }
-                },
-                methods: {
-                    obtenerProducto() {
-                        fetch(URL + 'productos/' + this.codigo)
-                            .then(response => {
-                                if (response.ok) {
-                                    return response.json()
-                                } else {
-                                    throw new Error('Error al obtener los datos del producto.')
-                                }
-                            })
-                            .then(data => {
-                                this.descripcion = data.descripcion
-                                this.cantidad = data.cantidad
-                                this.precio = data.precio
-                                this.mostrarDatosProducto = true
-                            })
-                            .catch(error => {
-                                alert('Error al obtener los datos del producto.')
-                            })
-                    },
-                    guardarCambios() {
-                        const producto = {
-                            codigo: this.codigo,
-                            descripcion: this.descripcion,
-                            cantidad: this.cantidad,
-                            precio: this.precio
-                        }
-    
-                        fetch(URL + 'productos/' + this.codigo, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(producto)
-                        })
-                            .then(response => {
-                                if (response.ok) {
-                                    return response.json()
-                                } else {
-                                    throw new Error('Error al guardar los cambios del producto.')
-                                }
-                            })
-                            .then(data => {
-                                alert('Cambios guardados correctamente.')
-                                location.reload()
-                            })
-                            .catch(error => {
-                                alert('Error al guardar los cambios del producto.')
-                            })
-                    }
-                }
-            })
-    
-            app2.mount('#app')
-        </script>
+      
 </body>
 
 </html>

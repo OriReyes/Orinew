@@ -174,15 +174,12 @@ class Carrito:
 app = Flask(__name__)
 CORS(app)
 
-app2 = Flask(__name__)
-CORS(app2)
-
 carrito = Carrito()         # Instanciamos un carrito
 inventario = Inventario()   # Instanciamos un inventario
 
 # 2 - Ruta para obtener los datos de un producto según su código
 # GET: envía la información haciéndola visible en la URL de la página web.
-@app2.route('/productos/<int:codigo>', methods=['GET'])
+@app.route('/productos/<int:codigo>', methods=['GET'])
 def obtener_producto(codigo):
     producto = inventario.consultar_producto(codigo)
     if producto:
@@ -213,7 +210,7 @@ def agregar_producto():
 
 # 5 - Ruta para modificar un producto del inventario
 # PUT: permite actualizar información.
-@app2.route('/productos/<int:codigo>', methods=['PUT'])
+@app.route('/productos/<int:codigo>', methods=['PUT'])
 def modificar_producto(codigo):
     nueva_descripcion = request.json.get('descripcion')
     nueva_cantidad = request.json.get('cantidad')
@@ -256,8 +253,6 @@ def index():
 # Finalmente, si estamos ejecutando este archivo, lanzamos app.
 if __name__ == '__main__':
     app.run()
-if __name__ == '__main__':
-    app2.run()
 
 
     
