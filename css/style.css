@@ -45,10 +45,25 @@ button:hover {
     background-color: #0056b3;
 }
 
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .form-group label {
+    width: 120px;
+  }
+  .form-group input[type="text"] {
+    flex-grow: 1;
+    width: 200px;
+  }
+  .form-group button {
+    margin-left: 10px;
+  }
 .form-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: right;
+    align-items: right;
 }
 
 .form-container form {
